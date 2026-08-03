@@ -284,6 +284,14 @@
     font-size: 0.95rem;
   }
 
+  .card-body code {
+    font-family: ui-monospace, "Cascadia Code", "SF Mono", Consolas, "Liberation Mono", monospace;
+    font-size: 0.88em;
+    background: var(--border);
+    padding: 0.05em 0.35em;
+    border-radius: 4px;
+  }
+
   .card-footer {
     display: flex;
     align-items: center;
@@ -456,13 +464,14 @@
         </div>
         <div class="card-body">
           <h3>Cliente y servidor MCP</h3>
-          <p>Un chatbot de documentos que implementa <em>ambos</em> lados del Model Context Protocol con el SDK oficial: servidor con herramientas, recursos y prompts predefinidos, y un cliente que los conecta a un LLM (NVIDIA Nemotron) por stdio.</p>
-          <p class="why">Probado con éxito: el modelo pide la lista de documentos antes de leer uno cuando no sabe qué existe, y relee un documento antes de editarlo — sin que nada se lo indique explícitamente.</p>
+          <p>Un chatbot de documentos que implementa <em>ambos</em> lados del Model Context Protocol con el SDK oficial: servidor con herramientas, recursos y prompts predefinidos, y un cliente que los conecta a un LLM (NVIDIA Nemotron) por stdio. Incluye las features avanzadas del protocolo: <em>sampling</em> (el servidor le pide al cliente que llame al LLM por él, sin tener su propia clave de API) y <em>roots</em> (el usuario decide qué carpetas del disco puede tocar el servidor) — además de una variante sobre transporte HTTP en 3 modos.</p>
+          <p class="why">Probado con éxito: el modelo pide la lista de documentos antes de leer uno cuando no sabe qué existe, y relee un documento antes de editarlo sin que se le indique. Las pruebas de roots también revelaron y corrigieron un bug real: faltaba un <code>await</code> en la validación de permisos de <code>list_directory</code>, así que el acceso fuera del root nunca se bloqueaba.</p>
         </div>
         <div class="card-footer">
           <div class="tags">
             <span>MCP SDK</span>
-            <span>Recursos &amp; prompts</span>
+            <span>Sampling</span>
+            <span>Roots</span>
             <span>NVIDIA Nemotron</span>
           </div>
           <a class="open-repo mono" href="https://github.com/rogers980/practica-mcp" target="_blank" rel="noopener">$ ver repo →</a>
